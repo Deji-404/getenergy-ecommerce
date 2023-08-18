@@ -104,8 +104,15 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-if DEBUG:
+if DEBUG == False:
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 else:
     DATABASES = {
@@ -114,6 +121,11 @@ else:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+
+    STATICFILES_DIRS = [
+        BASE_DIR / "static"
+    ]
+    MEDIA_ROOT = BASE_DIR / "media"
 
 
 # Password validation
@@ -152,20 +164,6 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
-
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Turn on WhiteNoise storage backend that takes care of compressing static files
-    # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-else:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static"
-    ]
-    MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
