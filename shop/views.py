@@ -17,11 +17,6 @@ from django.db.models import Q
 
 
 def home_page(request):
-    inverter_category = get_object_or_404(Category, name='inverters')
-    battery_category = get_object_or_404(Category, name='batteries')
-
-    inverter_products = Product.objects.filter(category=inverter_category)[:4]
-    battery_products = Product.objects.filter(category=battery_category)[:4]
 
     categories = Category.objects.all()
 
@@ -31,9 +26,7 @@ def home_page(request):
 
     companies = Company.objects.all()
 
-    return render(request, 'index.html', {'inverter_products': inverter_products,
-                                          'battery_products': battery_products,
-                                          'categories': categories,
+    return render(request, 'index.html', {'categories': categories,
                                           'companies': companies})
 
 def shop(request, page):
