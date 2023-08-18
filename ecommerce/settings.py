@@ -153,7 +153,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
 
-if DEBUG:
+if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
