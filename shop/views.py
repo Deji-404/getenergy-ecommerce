@@ -20,9 +20,11 @@ def home_page(request):
 
     categories = Category.objects.all()
 
-    for cat in categories:
-        cat_products = Product.objects.filter(category=cat)[:4]
-        categories.products = cat_products
+    if categories:
+
+        for cat in categories:
+            cat_products = Product.objects.filter(category=cat)[:4]
+            categories.products = cat_products
 
     companies = Company.objects.all()
 
