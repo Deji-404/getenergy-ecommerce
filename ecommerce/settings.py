@@ -104,7 +104,7 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-if not DEBUG:
+if DEBUG:
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 else:
@@ -153,7 +153,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
 
-if not DEBUG:
+if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
